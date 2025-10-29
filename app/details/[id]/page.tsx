@@ -1,18 +1,17 @@
 import EventDetails from "@/components/details/EventDetails";
-import EventVenue from "@/components/details/EventVenue";
-import HeroSection from "@/components/details/HeroSection";
-import React from "react";
+import EventDetailsSkeleton from "@/components/skeleton/EventDetailsSkeleton";
+import React, { Suspense } from "react";
 
-export default function DetailsPage() {
+export default async function DetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  // console.log(id);
   return (
-    <>
-      <HeroSection />
-      <section className="container mx-auto">
-        <div className="grid grid-cols-5 gap-12 my-12">
-          <EventDetails />
-          <EventVenue />
-        </div>
-      </section>
-    </>
+    <Suspense fallback={<EventDetailsSkeleton />}>
+      <EventDetails id={id} />
+    </Suspense>
   );
 }
