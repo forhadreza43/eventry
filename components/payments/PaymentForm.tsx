@@ -53,7 +53,7 @@ const PaymentForm = () => {
       </div>
       <button
         type="submit"
-        className="w-full my-8 bg-indigo-600 hover:bg-indigo-800 py-2 rounded-md"
+        className="w-full my-8 bg-indigo-600 hover:bg-indigo-800 border border-indigo-800 py-2 rounded-md"
       >
         Pay Now
       </button>
