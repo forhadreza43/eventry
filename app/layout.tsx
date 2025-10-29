@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { dbConnect } from "../services/mongo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,18 +15,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-      title: {
-        default: "Eventry",
-        template: "%s | Eventry",
-      },
+  title: {
+    default: "Eventry",
+    template: "%s | Eventry",
+  },
   description: "An event discovery platform",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await dbConnect();
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body
