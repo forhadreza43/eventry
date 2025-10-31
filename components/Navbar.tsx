@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import logo from "../public/logo.png";
+import SignInOut from "./SignInOut";
 export default function Navbar() {
   return (
     <nav>
       <div className="container mx-auto flex justify-between items-center py-4">
         <div className="nav-brand">
-          <Link href="/" >
+          <Link href="/">
             <Image src={logo} alt="Eventry" width={135} height={135} />
           </Link>
         </div>
@@ -19,7 +20,7 @@ export default function Navbar() {
             <Link href="/contact">Contact Us</Link>
           </li>
           <li>
-            <Link href="/login">Login</Link>
+            <SignInOut />
           </li>
         </ul>
       </div>
