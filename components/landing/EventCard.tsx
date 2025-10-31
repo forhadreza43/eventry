@@ -35,7 +35,7 @@ export default async function EventCard({ event }: { event: Promise<IEvent> }) {
       </div>
       {/* Buttons */}
       <div className="p-3">
-        <ActionButtons fromDetails={false} />
+        <ActionButtons fromDetails={false} eventId={_id.toString()} />
       </div>
     </div>
   );
