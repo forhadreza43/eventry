@@ -10,7 +10,7 @@
     "postinstall": "npm rebuild sharp --update-binary || true"
   },
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
   "dependencies": {
     "@plaiceholder/next": "^3.0.0",
