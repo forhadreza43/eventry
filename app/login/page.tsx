@@ -1,6 +1,12 @@
 import LoginForm from "@/components/form/LoginForm";
 import Link from "next/link";
 import React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Login',
+  description: 'Sign in to your Eventry account to discover and join exciting events.',
+}
 
 export default function LoginPage() {
   return (

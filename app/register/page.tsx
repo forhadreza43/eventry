@@ -1,6 +1,12 @@
 import RegisterForm from "@/components/form/RegisterForm";
 import Link from "next/link";
 import React from "react";
+import { Metadata } from 'next';
+
+export const metadata:Metadata ={
+  title: 'Register',
+  description: 'Create a new account on Eventry to discover and join exciting events.',
+}
 
 export default function RegistrationPage() {
 
