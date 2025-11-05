@@ -6,7 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "npm rebuild sharp --update-binary || true"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "dependencies": {
     "@plaiceholder/next": "^3.0.0",
