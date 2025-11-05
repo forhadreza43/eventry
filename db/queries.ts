@@ -49,7 +49,7 @@ const updateInterest = async (userId: string, eventId: string) => {
     }
 
     const isInterested = event.interested_ids.some(
-      (id:{id:string}) => id.toString() === userId.toString()
+      (id: { id: string }) => id.toString() === userId.toString()
     );
 
     // Use findOneAndUpdate to atomically update the document
@@ -75,4 +75,32 @@ const updateInterest = async (userId: string, eventId: string) => {
   }
 };
 
-export { getAllEvents, getEventById, createUser, findUser, updateInterest };
+const updateGoing = async (userId: string, eventId: string) => {
+  try {
+    const event = await eventModel.findById(eventId);
+
+    if (!event) {
+      throw new Error("Event not found");
+    }
+    const updatedEvent = await eventModel.findOneAndUpdate(
+      { _id: eventId },
+      { $addToSet: { going_ids: userId } }
+    );
+
+    if (!updatedEvent) {
+      throw new Error("Event not found during update");
+    }
+  } catch (error) {
+    console.error("Error updating going status:", error);
+    throw error;
+  }
+};
+
+export {
+  getAllEvents,
+  getEventById,
+  createUser,
+  findUser,
+  updateInterest,
+  updateGoing,
+};

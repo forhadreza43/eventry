@@ -1,6 +1,19 @@
-const PaymentForm = () => {
+"use client";
+import { addToGoing } from "@/actions/actions";
+import { useAuth } from "@/hooks/useAuth";
+import { SerializedEvent } from "@/definition/definition";
+
+const PaymentForm = ({
+  eventId,
+  event,
+}: {
+  eventId: string;
+  event: SerializedEvent;
+}) => {
+  const { user } = useAuth();
+  const isGoing = user && event.going_ids.includes(user.id!);
   return (
-    <form>
+    <form action={() => addToGoing(user!, eventId)}>
       <div className="my-4 space-y-2">
         <label htmlFor="name" className="block">
           Name
@@ -53,7 +66,10 @@ const PaymentForm = () => {
       </div>
       <button
         type="submit"
-        className="w-full my-8 bg-indigo-600 hover:bg-indigo-800 border border-indigo-800 py-2 rounded-md"
+        className={`w-full my-8 bg-indigo-600 hover:bg-indigo-800 border border-indigo-800 py-2 rounded-md ${
+          isGoing ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+        }`}
+        disabled={isGoing!}
       >
         Pay Now
       </button>

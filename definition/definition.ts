@@ -15,3 +15,14 @@ export type AuthUser = {
   phone?: string | null;
   bio?: string | null;
 };
+
+export interface SerializedEvent {
+  id: string;
+  name: string;
+  details: string;
+  location: string;
+  imageUrl: string;
+  interested_ids: string[];
+  going_ids: string[];
+  swags: string[];
+}
