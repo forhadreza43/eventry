@@ -2,6 +2,7 @@
 import { addToGoing } from "@/actions/actions";
 import { useAuth } from "@/hooks/useAuth";
 import { SerializedEvent } from "@/definition/definition";
+import { useTransition } from "react";
 
 const PaymentForm = ({
   eventId,
@@ -12,8 +13,9 @@ const PaymentForm = ({
 }) => {
   const { user } = useAuth();
   const isGoing = user && event.going_ids.includes(user.id!);
+  const [isPending, startTransition] = useTransition();
   return (
-    <form action={() => addToGoing(user!, eventId)}>
+    <form action={() => startTransition(() => addToGoing(user!, eventId))}>
       <div className="my-4 space-y-2">
         <label htmlFor="name" className="block">
           Name
@@ -71,7 +73,7 @@ const PaymentForm = ({
         }`}
         disabled={isGoing!}
       >
-        Pay Now
+        {isPending ? "Processing..." : isGoing ? "Already Going" : "Pay Now"}
       </button>
     </form>
   );
