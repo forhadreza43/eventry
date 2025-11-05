@@ -1,36 +1,57 @@
 "use client";
 import { useAuth } from "@/hooks/useAuth";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
-import { updateInterest } from "@/actions/actions";
+import React, { useTransition } from "react";
+import { updateEventInterest } from "@/actions/actions";
 
-const ActionButtons = ({ fromDetails, eventId }: { fromDetails: boolean, eventId: string }) => {
+const ActionButtons = ({
+  fromDetails,
+  eventId,
+  interested_ids,
+}: {
+  fromDetails: boolean;
+  eventId: string;
+  interested_ids: string[];
+}) => {
   const { user } = useAuth();
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
-  const handleInterest = async() => {
-    if (!user) {
-      router.push("/login"); 
+  async function toggleInterest() {
+    if (user) {
+      await updateEventInterest(user.id!, eventId);
+      router.refresh();
     } else {
-      await updateInterest(user.id!, eventId);
-      alert("Thank you for your interest!");
+      router.push("/login");
     }
-  };
+  }
+
+  const handleGoing = async () => {
+    if (user) {
+      router.push("/payment")
+    }
+    else {
+      router.push("/login");
+    }
+  }
+
+  const isInterested = user && interested_ids.includes(user.id!.toString());
+
   return (
     <div className={`w-full flex gap-4 mt-4 ${fromDetails && "flex-1"}`}>
       <button
-        className="w-full bg-indigo-600 hover:bg-indigo-800 border-indigo-700"
-        onClick={handleInterest}
+        className={`w-full hover:bg-indigo-800  ${
+          isInterested
+            ? "bg-indigo-800 border-indigo-700"
+            : "bg-[#464849] border-[#5F5F5F]/50"
+        } `}
+        onClick={() => startTransition(() => toggleInterest())}
       >
-        Interested
+        {isPending ? "Processing..." : "Interested"}
       </button>
-      <Link
-        href={user ? "/payment" : "/login"}
-        className=" text-center w-full bg-[#464849] py-2 px-2 rounded-md border border-[#5F5F5F]/50 shadow-sm cursor-pointer hover:bg-[#3C3D3D] transition-colors active:translate-y-1"
-      >
+      <button onClick={handleGoing} className=" text-center w-full bg-[#464849] py-2 px-2 rounded-md border border-[#5F5F5F]/50 shadow-sm cursor-pointer hover:bg-[#3C3D3D] transition-colors active:translate-y-1">
         Going
-      </Link>
+      </button>
     </div>
   );
 };
