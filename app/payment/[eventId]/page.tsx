@@ -1,12 +1,29 @@
 import PaymentForm from "@/components/payments/PaymentForm";
 import { getEventById } from "@/db/queries";
-import { Metadata } from "next";
 import React from "react";
 
-export const metadata: Metadata = {
-  title: "Payment Page",
-  description: "Complete your payment for the event",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ eventId: string }>;
+}) {
+  const { eventId } = await params;
+  const eventDoc = await getEventById(eventId);
+
+  if (!eventDoc) {
+    return {
+      title: "Event not found",
+      description: "The requested event could not be found.",
+    };
+  }
+  return {
+    title: `Payment | ${eventDoc.name}`,
+    description: eventDoc.details,
+    openGraph: {
+      images: [eventDoc.imageUrl || ""],
+    },
+  };
+}
 
 export default async function PaymentPage({
   params,
