@@ -1,5 +1,9 @@
 "use server";
-import { createUser, findUser, getEventById, updateEventInterest } from "@/db/queries";
+import {
+  createUser,
+  findUser,
+  updateInterest,
+} from "@/db/queries";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -64,10 +68,14 @@ async function performLogin(formData: FormData) {
   return safeUser;
 }
 
-const updateInterest = async (userId: string, eventId: string) => {
-  await updateEventInterest(userId, eventId);
-  revalidatePath(`/details/${eventId}`);
+const updateEventInterest = async (userId: string, eventId: string) => {
+  try {
+    // console.log(userId, eventId);
+    await updateInterest(userId, eventId);
+  } catch (error) {
+    console.error("Error updating event interest:", error);
+  }
+  revalidatePath("/");
+};
 
-}
-
-export { registerUser, performLogin, updateInterest };
+export { registerUser, performLogin, updateEventInterest };
