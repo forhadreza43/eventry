@@ -2,12 +2,15 @@ import Image from "next/image";
 import React from "react";
 import ActionButtons from "../ActionButtons";
 import Link from "next/link";
-import { IEvent } from "@/models/event-models";
+import EventSchemaScript from "../meta/EventSchemaScript";
+import { SerializedEvent } from "@/definition/definition";
 
-export default async function EventCard({ event }: { event: Promise<IEvent> }) {
-  const { imageUrl, name, location, interested_ids, going_ids, _id } = await event;
+export default async function EventCard({ event }: { event: SerializedEvent }) {
+  const { imageUrl, name, location, interested_ids, going_ids, id } =
+    await event;
   return (
     <div className="overflow-hidden rounded-md bg-[#242526] flex flex-col justify-between">
+      <EventSchemaScript event={await event} />
       <div>
         <Image
           src={imageUrl}
@@ -21,21 +24,26 @@ export default async function EventCard({ event }: { event: Promise<IEvent> }) {
         />
         <div className="p-3">
           <div>
-        <Link href={`/details/${_id}`} className="font-bold text-lg">
-          {name}
-        </Link>
-        <p className="text-[#9C9C9C] text-sm mt-1">{location}</p>
-        <div className="text-[#737373] text-sm mt-1">
-          <span>{interested_ids.length} Interested</span>
-          <span>|</span>
-          <span>{going_ids.length} Going</span>
-        </div>
+            <Link href={`/details/${id}`} className="font-bold text-lg">
+              {name}
+            </Link>
+            <p className="text-[#9C9C9C] text-sm mt-1">{location}</p>
+            <div className="text-[#737373] text-sm mt-1">
+              <span>{interested_ids.length} Interested</span>
+              <span>|</span>
+              <span>{going_ids.length} Going</span>
+            </div>
           </div>
         </div>
       </div>
       {/* Buttons */}
       <div className="p-3">
-        <ActionButtons fromDetails={false} eventId={_id.toString()} interested_ids={interested_ids} going_ids={going_ids} />
+        <ActionButtons
+          fromDetails={false}
+          eventId={id.toString()}
+          interested_ids={interested_ids}
+          going_ids={going_ids}
+        />
       </div>
     </div>
   );
