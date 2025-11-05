@@ -48,8 +48,14 @@ export default async function PaymentPage({
     details: eventDoc.details,
     location: eventDoc.location,
     imageUrl: eventDoc.imageUrl,
-    interested_ids: eventDoc.interested_ids?.map((id: { toString: () => string }) => id.toString()) || [],
-    going_ids: eventDoc.going_ids?.map((id: { toString: () => string }) => id.toString()) || [],
+    interested_ids:
+      eventDoc.interested_ids?.map((id: { toString: () => string }) =>
+        id.toString()
+      ) || [],
+    going_ids:
+      eventDoc.going_ids?.map((id: { toString: () => string }) =>
+        id.toString()
+      ) || [],
     swags: eventDoc.swags || [],
   };
 
