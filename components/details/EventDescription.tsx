@@ -1,6 +1,6 @@
-import { IEvent } from "@/models/event-models";
+import { SerializedEvent } from "@/definition/definition";
 
-export default async function EventDescription({ event }: { event: IEvent }) {
+export default async function EventDescription({ event }: { event: SerializedEvent }) {
   const { details, swags } = await event;
   return (
     <div className="col-span-3">

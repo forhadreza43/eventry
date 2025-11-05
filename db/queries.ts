@@ -32,7 +32,16 @@ const getAllEvents = async (searchQuery: string) => {
 const getEventById = async (eventId: string) => {
   try {
     const event = await eventModel.findById(eventId);
-    return event;
+    return {
+      id: event._id.toString(),
+      name: event.name,
+      details: event.details,
+      location: event.location,
+      imageUrl: event.imageUrl,
+      interested_ids: event.interested_ids,
+      going_ids: event.going_ids,
+      swags: event.swags,
+    } as SerializedEvent;
   } catch (error) {
     console.error("Error fetching event by ID:", error);
   }

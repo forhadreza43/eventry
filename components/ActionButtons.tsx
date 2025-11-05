@@ -1,7 +1,7 @@
 "use client";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
-import React, { useState, useTransition } from "react";
+import React, { useTransition } from "react";
 import { updateEventInterest } from "@/actions/actions";
 
 const ActionButtons = ({

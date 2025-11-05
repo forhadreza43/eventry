@@ -1,7 +1,7 @@
-import { IEvent } from '@/models/event-models';
+import { SerializedEvent } from '@/definition/definition';
 import React from 'react'
 
-export default function EventVenue({event}:{event: IEvent}) {
+export default function EventVenue({ event }: { event: SerializedEvent}) {
   return (
     <div className="overflow-hidden rounded-lg col-span-2 bg-[#242526]">
       <div className="w-full">
@@ -14,9 +14,7 @@ export default function EventVenue({event}:{event: IEvent}) {
         ></iframe>
       </div>
       <div className="p-4">
-        <p className="text-[#9C9C9C] text-base mt-1">
-          {event?.location}
-        </p>
+        <p className="text-[#9C9C9C] text-base mt-1">{event?.location}</p>
       </div>
     </div>
   );

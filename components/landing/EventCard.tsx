@@ -4,10 +4,12 @@ import ActionButtons from "../ActionButtons";
 import Link from "next/link";
 import EventSchemaScript from "../meta/EventSchemaScript";
 import { SerializedEvent } from "@/definition/definition";
+import { getBlurData } from "@/utils/blur-generator";
 
 export default async function EventCard({ event }: { event: SerializedEvent }) {
   const { imageUrl, name, location, interested_ids, going_ids, id } =
     await event;
+    const { base64 } = await getBlurData(imageUrl);
   return (
     <div className="overflow-hidden rounded-md bg-[#242526] flex flex-col justify-between">
       <EventSchemaScript event={await event} />
@@ -20,7 +22,7 @@ export default async function EventCard({ event }: { event: SerializedEvent }) {
           loading="lazy"
           className="w-full"
           placeholder="blur"
-          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx0cHBwcHy4lJSAqLiswMy0rLy0xNzc4MS4/RUFEWl1hXV5qcGNwdnhsjY2Q2cDf4Wz/2wBDARUXFygdISAcICBshWRkZGVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWX/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+          blurDataURL={base64}
         />
         <div className="p-3">
           <div>

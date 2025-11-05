@@ -31,33 +31,15 @@ export default async function PaymentPage({
   params: Promise<{ eventId: string }>;
 }) {
   const { eventId } = await params;
-  const eventDoc = await getEventById(eventId);
+  const event = await getEventById(eventId);
 
-  if (!eventDoc) {
+  if (!event) {
     return (
       <div className="text-center py-12">
         <h2 className="text-xl">Event not found</h2>
       </div>
     );
   }
-
-  // Serialize the mongoose document to a plain object
-  const event = {
-    id: eventDoc._id.toString(),
-    name: eventDoc.name,
-    details: eventDoc.details,
-    location: eventDoc.location,
-    imageUrl: eventDoc.imageUrl,
-    interested_ids:
-      eventDoc.interested_ids?.map((id: { toString: () => string }) =>
-        id.toString()
-      ) || [],
-    going_ids:
-      eventDoc.going_ids?.map((id: { toString: () => string }) =>
-        id.toString()
-      ) || [],
-    swags: eventDoc.swags || [],
-  };
 
   return (
     <section className="container mx-auto">
