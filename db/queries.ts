@@ -1,10 +1,22 @@
-import { User } from "@/definition/definition";
+import { SerializedEvent, User } from "@/definition/definition";
 import { eventModel, userModel } from "@/models/event-models";
 
 const getAllEvents = async () => {
   try {
     const allEvents = await eventModel.find({});
-    return allEvents;
+    const events = allEvents.map((event) => {
+      return {
+        id: event._id.toString(),
+        name: event.name,
+        details: event.details,
+        location: event.location,
+        imageUrl: event.imageUrl,
+        interested_ids: event.interested_ids,
+        going_ids: event.going_ids,
+        swags: event.swags,
+      } as SerializedEvent;
+    });
+    return events;
   } catch (error) {
     console.error("Error fetching all events:", error);
   }
