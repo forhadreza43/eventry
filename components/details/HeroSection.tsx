@@ -24,13 +24,13 @@ const HeroSection = ({event}:{event: IEvent}) => {
             {event?.location}
           </p>
           <div className="text-[#737373] text-sm mt-1">
-            <span>{event?.interested_ids?.length}k Interested</span>
+            <span>{event?.interested_ids?.length} Interested</span>
             <span className="mx-2">|</span>
-            <span>{event?.going_ids.length}K Going</span>
+            <span>{event?.going_ids.length} Going</span>
           </div>
         </div>
 
-        <ActionButtons fromDetails={true} />
+        <ActionButtons fromDetails={true} eventId={event?.id} interested_ids={event?.interested_ids} />
       </div>
     </section>
   );

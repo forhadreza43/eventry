@@ -26,16 +26,16 @@ export default async function EventCard({ event }: { event: Promise<IEvent> }) {
         </Link>
         <p className="text-[#9C9C9C] text-sm mt-1">{location}</p>
         <div className="text-[#737373] text-sm mt-1">
-          <span>{interested_ids.length}k Interested</span>
+          <span>{interested_ids.length} Interested</span>
           <span>|</span>
-          <span>{going_ids.length}K Going</span>
+          <span>{going_ids.length} Going</span>
         </div>
           </div>
         </div>
       </div>
       {/* Buttons */}
       <div className="p-3">
-        <ActionButtons fromDetails={false} eventId={_id.toString()} />
+        <ActionButtons fromDetails={false} eventId={_id.toString()} interested_ids={interested_ids} />
       </div>
     </div>
   );
