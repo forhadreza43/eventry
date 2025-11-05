@@ -1,5 +1,5 @@
-import withPlaiceholder from "@plaiceholder/next";
 import type { NextConfig } from "next";
+// import withPlaiceholder from "@plaiceholder/next";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -13,5 +13,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-// export default nextConfig;
-export default withPlaiceholder(nextConfig);
+export default nextConfig;
+// export default withPlaiceholder(nextConfig);
