@@ -1,10 +1,17 @@
 import { SerializedEvent, User } from "@/definition/definition";
 import { eventModel, userModel } from "@/models/event-models";
 
-const getAllEvents = async () => {
+const getAllEvents = async (searchQuery: string) => {
   try {
-    const allEvents = await eventModel.find({});
-    const events = allEvents.map((event) => {
+    let events = [];
+    if (searchQuery) {
+      const regex = new RegExp(searchQuery, "i");
+      events = await eventModel.find({ name: { $regex: regex } });
+    } else {
+      events = await eventModel.find({});
+    }
+
+    return events.map((event) => {
       return {
         id: event._id.toString(),
         name: event.name,
@@ -16,7 +23,6 @@ const getAllEvents = async () => {
         swags: event.swags,
       } as SerializedEvent;
     });
-    return events;
   } catch (error) {
     console.error("Error fetching all events:", error);
   }

@@ -1,4 +1,5 @@
 import React from 'react'
+import Search from './Search';
 
 export default function Header() {
   return (
@@ -6,11 +7,7 @@ export default function Header() {
       <h1 className="font-bold text-3xl">Discover Events</h1>
 
       <div>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="bg-[#27292F] border border-[#CCCCCC]/20 py-1 px-2 rounded-md"
-        />
+        <Search placeholder="Search events..." />
       </div>
     </div>
   );
