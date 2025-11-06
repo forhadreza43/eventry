@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "bunx sharp install"
+    "postinstall": "node scripts/install-sharp.js || echo 'Sharp install skipped'"
   },
   "engines": {
     "node": "22.x"
