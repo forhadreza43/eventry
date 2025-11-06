@@ -1,6 +1,6 @@
 {
   "buildCommand": "bun run build",
-  "installCommand": "bun install",
+  "installCommand": "bun install || npm ci --include=optional",
   "framework": "nextjs"
 }
 
