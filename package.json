@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "npm rebuild sharp"
+    "postinstall": "bunx sharp install"
   },
   "engines": {
     "node": "22.x"
